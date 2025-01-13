@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+
+    <!-- Basic meta tags for responsiveness and character encoding -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Er. Babin Ghimire | Civil/Transportation Engineer</title>
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <!-- 
+      Inline CSS for demonstration purposes.
+      For production usage, consider placing these styles in a separate .css file.
+    -->
+    <style>
+        /* 
+          Global reset & basic styles 
+        */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* Light-blue page background */
+            color: #333;
+            overflow-x: hidden; /* No horizontal scroll if elements go wide */
+        }
+
+        /* 
+          Header
+        */
+        header {
+            /* Gradient effect for a more dynamic header */
+            background: linear-gradient(135deg, #1b4b8b, #14507c);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* 
+          Hero / Top Section 
+          This holds the photo on the left and the introduction on the right
+          in a flex container on larger screens. 
+        */
+        .hero {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 1100px;
+            margin: -30px auto 80px auto; 
+            /* Negative top margin to "pull" it under the header a bit */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;    /* Wrap on smaller screens */
+            padding: 20px;
+            align-items: center;
+        }
+
+        /* 
+          Profile Image 
+        */
+        .profile-img {
+            /* Slightly bigger max width for a more prominent photo */
+            max-width: 300px;
+            width: 100%;
+            border: 4px solid #1b4b8b;
+            border-radius: 6px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 
+          Hover effect on the image 
+        */
+        .profile-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* 
+          Intro text area 
+        */
+        .intro {
+            flex: 1; /* Grows to take remaining space in the .hero flex container */
+            padding: 20px;
+            text-align: left;  /* On larger screens, left-align the text */
+        }
+
+        .intro h2 {
+            font-size: 1.8rem;
+            color: #1b4b8b;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* 
+          For smaller screens, stack the hero sections and center text 
+        */
+        @media(max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .intro {
+                text-align: center;
+                padding: 20px 0 0 0;
+            }
+        }
+
+        /* 
+          Buttons Container: For Social and Contact 
+        */
+        .btn-section {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto 80px auto;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background-color: #1b4b8b;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .btn:hover {
+            background-color: #14507c;
+            transform: translateY(-2px); 
+        }
+
+        /* 
+          Footer 
+          (unchanged as per your request)
+        */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            width: 100%;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 16px;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        
+        footer a,
+        footer button {
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        /* 
+          Modal backdrop 
+        */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* 
+          Modal content box 
+        */
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            border-radius: 10px;
+            position: relative;
+            text-align: center;
+        }
+
+        /* 
+          Close button in modal 
+        */
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 
+          QR image style 
+        */
+        .qr-img {
+            width: 80%;
+            height: auto;
+        }
+
+        /* 
+          For a bit of spacing from the bottom 
+          so the final section isn't hidden by fixed footer 
+        */
+        .spacer {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with name -->
+    <header>
+        <h1>Er. Babin Ghimire</h1>
+    </header>
+
+    <!-- Hero section with profile photo on the left & text on the right -->
+    <div class="hero">
+        <!-- Replace "babin_profile.jpeg" with actual profile image path -->
+        <img 
+            src="profile.jpg" 
+            alt="Profile photo of Er. Babin Ghimire" 
+            class="profile-img"
+        />
+        <div class="intro">
+            <h2>Civil/Transportation Engineer</h2>
+            <h3>Pavement Maintenance Engineer @ Christchurch City Council</h3>
+            
+        </div>
+    </div>
+    
+  
+
+        <!-- Contact Buttons (Call, SMS, WhatsApp, Email) -->
+        <h2 style="text-align: center; color: #1b4b8b;">Get in Touch</h2>
+        <div class="btn-grid">
+            <a href="tel:+642102435027" class="btn">
+                <i class="fas fa-phone"></i>&nbsp; Call
+            </a>
+            <a href="sms:+642102435027" class="btn">
+                <i class="fas fa-sms"></i>&nbsp; SMS
+            </a>
+            <a href="https://wa.me/642102435027" class="btn">
+                <i class="fab fa-whatsapp"></i>&nbsp; WhatsApp
+            </a>
+            <a href="mailto:ghimirebabin@gmail.com" class="btn">
+                <i class="fas fa-envelope"></i>&nbsp; Email
+            </a>
+        </div>
+    </div>
+      <!-- Buttons for Social Links -->
+      <div class="btn-section">
+        <h2 style="text-align: center; color: #1b4b8b;">Connect with me</h2>
+        <div class="btn-grid">
+            <a href="https://www.instagram.com/ghimirebabin/" class="btn">
+                <i class="fab fa-instagram"></i>&nbsp; Instagram
+            </a>
+            <a href="https://www.tiktok.com/@slowpoison1177" class="btn">
+                <i class="fab fa-tiktok"></i>&nbsp; TikTok
+            </a>
+        </div>
+
+    <!-- Spacer to prevent overlap with fixed footer on small screens -->
+    <div class="spacer"></div>
+
+    <!-- Footer (unchanged) -->
+    <footer>
+        <b>
+            <a href="#" onclick="showModal()" style="text-decoration: none; margin-right: 20px;">
+                <i class="fas fa-qrcode"></i> QR
+            </a>
+            <button onclick="saveContact()" style="background: none; border: none; cursor: pointer;">
+                <i class="fas fa-save"></i> <b>Save My Details     </b>
+            </button>
+            <a href="https://fitandfine.github.io/anup" style="text-decoration: none;"> 
+                <i class="fas fa-tools"></i> By
+            </a>
+        </b>
+    </footer>
+
+    <!-- QR Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <!-- Replace "qr.png" with the actual QR code image file name -->
+            <img src="qr.png" alt="QR Code" class="qr-img">
+            <p>Thank you for sharing :)</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for modal and saving contact -->
+    <script>
+        // Show the QR modal
+        function showModal() {
+            document.getElementById("qrModal").style.display = "block";
+        }
+
+        // Close the QR modal
+        function closeModal() {
+            document.getElementById("qrModal").style.display = "none";
+        }
+
+        // Close modal if user clicks outside
+        window.onclick = function(event) {
+            if (event.target === document.getElementById("qrModal")) {
+                closeModal();
+            }
+        }
+
+        // Save contact as .vcf file
+        function saveContact() {
+            var vCardData = 
+                "BEGIN:VCARD\n" +
+                "VERSION:3.0\n" +
+                "FN:Er. Babin Ghimire\n" +
+                "ORG:Christchurch City Council\n" +
+                "TITLE:Civil/Transportation Engineer\n" +
+                "TEL;TYPE=WORK,VOICE:+642102435027\n" +
+                "TEL;TYPE=CELL,VOICE:+642102435027\n" +
+                "EMAIL;TYPE=PREF,INTERNET:ghimirebabin@gmail.com\n" +
+                "END:VCARD";
+
+            var blob = new Blob([vCardData], { type: "text/vcard" });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "BabinGhimireContact.vcf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
